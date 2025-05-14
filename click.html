@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>GIF Around the Screen</title>
+  <title>GIF Frame</title>
   <style>
     body {
       margin: 0;
@@ -14,14 +14,15 @@
 
     #container {
       position: relative;
-      width: 100%;
+      width: 100vw;
       height: 100vh;
     }
 
     img {
       position: absolute;
-      width: 120px;
-      height: auto;
+      width: 100px;
+      height: 100px;
+      object-fit: cover;
       border-radius: 10px;
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
     }
@@ -32,8 +33,9 @@
       left: 50%;
       transform: translate(-50%, -50%);
       font-size: 2rem;
-      color: #000;
+      color: black;
       z-index: 10;
+      text-align: center;
     }
 
     .box {
@@ -89,37 +91,37 @@
 
     const container = document.querySelector("#container");
 
-    const sides = ["left", "right", "top", "bottom"];
-    const gifsPerSide = Math.ceil(imgLinks.length / 4);
-    const imgSize = 120;
-    const padding = 20;
+    const size = 100;
+    const spacing = 10;
+    const gifsPerSide = Math.floor(imgLinks.length / 4);
+    const sides = ["top", "right", "bottom", "left"];
 
-    imgLinks.forEach((link, i) => {
+    imgLinks.forEach((src, i) => {
       const img = document.createElement("img");
-      img.src = link;
+      img.src = src;
 
       const side = sides[i % 4];
       const indexOnSide = Math.floor(i / 4);
 
-      if (side === "left") {
-        img.style.left = `${padding}px`;
-        img.style.top = `${padding + indexOnSide * (imgSize + 20)}px`;
+      if (side === "top") {
+        img.style.top = "0";
+        img.style.left = `${spacing + indexOnSide * (size + spacing)}px`;
+      } else if (side === "bottom") {
+        img.style.bottom = "0";
+        img.style.left = `${spacing + indexOnSide * (size + spacing)}px`;
+      } else if (side === "left") {
+        img.style.left = "0";
+        img.style.top = `${spacing + indexOnSide * (size + spacing)}px`;
       } else if (side === "right") {
-        img.style.right = `${padding}px`;
-        img.style.top = `${padding + indexOnSide * (imgSize + 20)}px`;
-      } else if (side === "top") {
-        img.style.top = `${padding}px`;
-        img.style.left = `${padding + indexOnSide * (imgSize + 20)}px`;
-      } else if (side === "bottom") {
-        img.style.bottom = `${padding}px`;
-        img.style.left = `${padding + indexOnSide * (imgSize + 20)}px`;
-      } else if (side === "bottom") {
-        img.style.bottom = `${padding}px`;
-        img.style.left = `${padding + indexOnSide * (imgSize + 20)}px`;
-    }
+        img.style.right = "0";
+        img.style.top = `${spacing + indexOnSide * (size + spacing)}px`;
+      }
 
       container.appendChild(img);
     });
   </script>
+</body>
+</html>
+
 </body>
 </html>
