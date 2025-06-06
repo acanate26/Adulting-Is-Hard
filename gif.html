@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>How Do You Handle Being an Adult?</title>
+  <style>
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: 'Arial', sans-serif;
+      /* Layered backgrounds: moon, flowers */
+      background:
+        url('https://pngimg.com/d/moon_PNG35.png') no-repeat 5% 2%/180px, /* moon */
+        url('https://cdn.glitch.global/0545a6aa-bb1b-4a7a-9107-d3ba471d0a15/Music%20Video%20Space%20GIF%20by%20Dyanapyehchek.gif?v=1747638026626') no-repeat bottom center/cover, /* field/flowers */
+        linear-gradient(to bottom, #2d3559 0%, #6e7fa3 100%);
+      background-attachment: fixed;
+      position: relative;
+      overflow-x: hidden;
+    }
+    .overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(255,255,255,0.08);
+      pointer-events: none;
+      z-index: 10;
+    } 
+    .search-bar-outer {
+      margin: 40px auto 0 auto;
+      width: 900px;
+      background: rgba(255,255,255,0.7);
+      border-radius: 12px;
+      padding: 20px 0 30px 0;
+      box-sizing: border-box;
+      border: 0;
+      z-index: 20;
+      position: relative;
+    }
+    .search-bar-inner {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 30px;
+    }
+    .question-block {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+    .question-label {
+      font-size: 2rem;
+      font-family: 'Arial Black', Arial, sans-serif;
+      font-style: italic;
+      font-weight: bold;
+      color: #222;
+      letter-spacing: 1px;
+      margin-bottom: 10px;
+      text-shadow: 1px 1px 0 #fff, 2px 2px 0 #bbb;
+    }
+    .input-box {
+      background: #eee;
+      border: 4px solid #fff;
+      border-right: 4px solid #888;
+      border-bottom: 4px solid #888;
+      border-radius: 0;
+      width: 420px;
+      height: 54px;
+      font-size: 1.5rem;
+      color: #888;
+      padding: 0 18px;
+      font-family: 'Arial', sans-serif;
+      box-shadow: 4px 4px 0 #888;
+      outline: none;
+      margin-right: 10px;
+    }
+    .heart-btn {
+      width: 70px;
+      height: 70px;
+      background: #fff;
+      border: 4px solid #fff;
+      border-right: 4px solid #888;
+      border-bottom: 4px solid #888;
+      box-shadow: 4px 4px 0 #888;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      margin-left: 10px;
+      transition: filter 0.2s;
+      overflow: hidden;
+    }
+    .heart-btn:hover {
+      filter: brightness(1.2);
+    }
+    .pixel-heart {
+      width: 48px;
+      height: 48px;
+      image-rendering: pixelated;
+      animation: spin 1.2s linear infinite;
+      display: block;
+    }
+    @keyframes spin {
+      100% { transform: rotate(360deg);}
+    }
+    .heart-label {
+      font-size: 1.3rem;
+      margin-left: 18px;
+      font-style: italic;
+      color: #222;
+      font-family: 'Arial', sans-serif;
+    }
+    .heart-label b {
+      font-weight: bold;
+    }
+    .tips-message {
+      margin: 30px auto 0 auto;
+      width: 700px;
+      font-size: 1.3rem;
+      color: #333;
+      background: #fff;
+      border: 2px solid #bbb;
+      box-shadow: 2px 2px 0 #888;
+      padding: 18px 30px;
+      display: none;
+      font-family: 'Arial', sans-serif;
+      z-index: 20;
+      position: relative;
+    }
+    .gif-container {
+      margin: 40px auto 0 auto;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 220px;
+      z-index: 20;
+      position: relative;
+    }
+    .gif-container img {
+      width: 350px;
+      height: auto;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      background: #fff;
+      padding: 6px;
+    }
+  </style>
+</head>
+<body>
+  <div class="overlay"></div>
+  <div class="search-bar-outer">
+    <div class="search-bar-inner">
+      <div class="question-block">
+        <span class="question-label">How Do You Handle Being an Adult?</span>
+        <input class="input-box" type="text" placeholder="Type your answer or feeling here..." id="adultInput" />
+      </div>
+      <div class="heart-btn" id="heartBtn" title="Click the heart!">
+        <!-- Use your pixel-art heart image here -->
+        <img class="pixel-heart" src="https://cdn.glitch.global/0545a6aa-bb1b-4a7a-9107-d3ba471d0a15/Heart%20Beat%20Love%20GIF%20by%20Leah%20Dubuc.gif?v=1747638301051" alt="Pixel Heart" />
+      </div>
+      <span class="heart-label">Click the heart for <b>tips!</b></span>
+    </div>
+  </div>
+  <div class="gif-container" id="gif-container"></div>
+  <div class="tips-message" id="tipsMessage">
+    <b>Adulting Tips:</b>
+    <ul>
+      <li>It's okay to not have it all figured out.</li>
+      <li>Ask for help when you need it.</li>
+      <li>Take breaks and care for your mental health.</li>
+      <li>Celebrate small wins!</li>
+      <li>Remember, everyone is learning as they go. 🌱</li>
+    </ul>
+  </div>
+  <script>
+    // Array of GIF links related to "adulting"
+    const gifLinks = [
+      "https://cdn.glitch.global/bbf72d4b-7522-41bd-99a8-7657ed25c7bc/kendric%20lamar%20gif.gif?v=1744256686327",
+      "https://cdn.glitch.global/bbf72d4b-7522-41bd-99a8-7657ed25c7bc/You%20Got%20This%20Go%20Get%20Em%20GIF%20by%20Shalita%20Grant.gif?v=1744257011427",
+      "https://cdn.glitch.global/bbf72d4b-7522-41bd-99a8-7657ed25c7bc/You%20Got%20This%20Mental%20Health%20GIF%20by%20YouTube.gif?v=1744257452888",
+      "https://cdn.glitch.global/bbf72d4b-7522-41bd-99a8-7657ed25c7bc/Make%20It%20Stop%20Season%201%20GIF%20by%20SpongeBob%20SquarePants.gif?v=1744264559764",
+      "https://cdn.glitch.global/bbf72d4b-7522-41bd-99a8-7657ed25c7bc/You%20Are%20Awesome%20Dean%20Winchester%20GIF.gif?v=1744267068308",
+      "https://cdn.glitch.global/bbf72d4b-7522-41bd-99a8-7657ed25c7bc/Channel%209%20Kid%20GIF%20by%20Married%20At%20First%20Sight%20Australia.gif?v=1744267200135",
+      "https://cdn.glitch.global/bbf72d4b-7522-41bd-99a8-7657ed25c7bc/Stay%20Strong%20Stronger%20Together%20GIF%20by%20Studios%202016.gif?v=1744267674641",
+      "https://cdn.glitch.global/0545a6aa-bb1b-4a7a-9107-d3ba471d0a15/GIF%20by%20CBS.gif?v=1747249640007",
+    ];
+
+    // Function to display a random GIF
+    function displayRandomGif() {
+      const randomIndex = Math.floor(Math.random() * gifLinks.length);
+      const img = document.createElement("img");
+      img.src = gifLinks[randomIndex];
+      img.alt = "Random GIF about adulting";
+      document.getElementById('gif-container').appendChild(img);
+    }
+
+    // Display a random GIF when the page loads
+    window.onload = displayRandomGif;
+
+    // Show the "adulting tips" message when the heart is clicked
+    document.getElementById("heartBtn").onclick = function () {
+      document.getElementById("tipsMessage").style.display = "block";
+    };
+  </script>
+</body>
+</html>

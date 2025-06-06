@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GIF Around the Screen</title>
+  <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: 'Comic Neue', Comic Sans MS, cursive, sans-serif;
+      background: linear-gradient(180deg, #a14be7 0%, #f06fc8 100%);
+      overflow: hidden;
+    }
+
+    #lights {
+      width: 100vw;
+      height: 40px;
+      background: transparent;
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 100;
+      pointer-events: none;
+    }
+
+    #stars {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 5;
+      pointer-events: none;
+      display: block;
+    }
+
+    #container {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 10;
+      pointer-events: none;
+    }
+    #container img {
+      position: absolute;
+      border: 3px solid #fff;
+      outline: 2px dashed #ff00ff;
+      background: #fff8;
+      box-shadow: none;
+      border-radius: 0;
+      transition: transform 0.2s;
+      z-index: 2;
+      pointer-events: auto;
+    }
+    #container img:hover {
+      transform: scale(1.1) rotate(-5deg);
+      outline: 3px solid #ff0;
+    }
+
+    h1 {
+      position: absolute;
+      top: 10%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 3rem;
+      color: #fff;
+      text-shadow: 2px 2px 0 #ff00ff, 4px 4px 0 #00ffff;
+      z-index: 20;
+      font-family: 'Comic Neue', Comic Sans MS, cursive, sans-serif;
+      letter-spacing: 2px;
+      pointer-events: auto;
+      white-space: nowrap;
+    }
+
+    .box {
+      position: absolute;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: linear-gradient(90deg, #ff0, #0ff, #f0f);
+      padding: 15px 30px;
+      border-radius: 10px;
+      border: 2px solid #fff;
+      box-shadow: 0 0 10px #0008;
+      z-index: 20;
+      pointer-events: auto;
+    }
+
+    .box a {
+      color: #000;
+      text-decoration: none;
+      font-size: 1.5rem;
+      font-weight: bold;
+      font-family: 'Comic Neue', Comic Sans MS, cursive, sans-serif;
+      text-shadow: 1px 1px 0 #fff, 2px 2px 0 #ff0;
+    }
+
+    .box a:hover {
+      background: #fff;
+      border-radius: 5px;
+      padding: 15px 30px;
+      color: #f0f;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="lights"></canvas>
+  <canvas id="stars"></canvas>
+  <div id="container"></div>
+  <h1>You're Gonna Be Alright 💫</h1>
+  <div class="box">
+    <a href="gif.html">Click Here</a>
+  </div>
+  <script>
+    // Draw retro lights at the top
+    const lights = document.getElementById('lights');
+    lights.width = window.innerWidth;
+    lights.height = 40;
+    const ctx = lights.getContext('2d');
+    const colors = ['#ff0', '#0f0', '#0ff', '#f00', '#00f', '#f0f', '#ffa500'];
+    for (let i = 0; i < lights.width; i += 40) {
+      ctx.beginPath();
+      ctx.arc(i + 20, 20, 12, 0, 2 * Math.PI);
+      ctx.fillStyle = colors[i % colors.length];
+      ctx.fill();
+      ctx.strokeStyle = '#333';
+      ctx.stroke();
+      ctx.beginPath();
+      ctx.moveTo(i + 20, 0);
+      ctx.lineTo(i + 20, 20);
+      ctx.stroke();
+    }
+
+    // GIFs
+    const imgLinks = [
+      "https://cdn.glitch.global/bbf72d4b-7522-41bd-99a8-7657ed25c7bc/kendric%20lamar%20gif.gif?v=1744256686327",
+      "https://cdn.glitch.global/bbf72d4b-7522-41bd-99a8-7657ed25c7bc/You%20Got%20This%20Go%20Get%20Em%20GIF%20by%20Shalita%20Grant.gif?v=1744257011427",
+      "https://cdn.glitch.global/bbf72d4b-7522-41bd-99a8-7657ed25c7bc/You%20Got%20This%20Mental%20Health%20GIF%20by%20YouTube.gif?v=1744257452888",
+      "https://cdn.glitch.global/bbf72d4b-7522-41bd-99a8-7657ed25c7bc/Adventure%20Going%20GIF.gif?v=1744266653776",
+      "https://cdn.glitch.global/bbf72d4b-7522-41bd-99a8-7657ed25c7bc/You%20Are%20Awesome%20Dean%20Winchester%20GIF.gif?v=1744267068308",
+      "https://cdn.glitch.global/bbf72d4b-7522-41bd-99a8-7657ed25c7bc/Channel%209%20Kid%20GIF%20by%20Married%20At%20First%20Sight%20Australia.gif?v=1744267200135",
+      "https://cdn.glitch.global/bbf72d4b-7522-41bd-99a8-7657ed25c7bc/Stay%20Strong%20Stronger%20Together%20GIF%20by%20Studios%202016.gif?v=1744267674641",
+      "https://cdn.glitch.global/bbf72d4b-7522-41bd-99a8-7657ed25c7bc/Andy%20Samberg%20Queue%20GIF.gif?v=1744267595412",
+      "https://cdn.glitch.global/bbf72d4b-7522-41bd-99a8-7657ed25c7bc/humanity%20be%20excellent%20GIF.gif?v=1744271538787",
+      "https://cdn.glitch.global/0545a6aa-bb1b-4a7a-9107-d3ba471d0a15/Adam%20Devine%20College%20GIF%20by%20A%20Little%20Late%20With%20Lilly%20Singh.gif?v=1747247725409",
+      "https://cdn.glitch.global/0545a6aa-bb1b-4a7a-9107-d3ba471d0a15/season%202%20netflix%20GIF%20by%20Gilmore%20Girls.gif?v=1747247822613"
+    ];
+
+    const container = document.querySelector("#container");
+    const width = window.innerWidth;
+    const height = window.innerHeight;
+
+    // Avoid header and button areas
+    const headerHeight = 120; // enough for lights and header
+    const buttonHeight = 120; // enough for button at bottom
+
+    // Grid approach for even spread
+    const n = imgLinks.length;
+    const cols = Math.ceil(Math.sqrt(n * width / height));
+    const rows = Math.ceil(n / cols);
+
+    // Calculate available area (avoid header and button)
+    const gridTop = headerHeight;
+    const gridHeight = height - headerHeight - buttonHeight;
+    const gridWidth = width;
+
+    // Shuffle GIFs for more randomness
+    function shuffle(array) {
+      for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+      }
+    }
+    shuffle(imgLinks);
+
+    // Store GIF positions for shooting stars
+    const gifRects = [];
+
+    imgLinks.forEach((link, i) => {
+      const img = document.createElement("img");
+      img.src = link;
+      // BIGGER GIFS!
+      const size = 160 + Math.random() * 100; // 160px to 260px wide
+      img.style.width = `${size}px`;
+      img.style.height = "auto";
+
+      // Calculate grid position
+      const col = i % cols;
+      const row = Math.floor(i / cols);
+
+      // Cell size
+      const cellWidth = gridWidth / cols;
+      const cellHeight = gridHeight / rows;
+
+      // Random offset within cell, but keep GIF inside cell
+      const xOffset = Math.random() * (cellWidth - size);
+      const yOffset = Math.random() * (cellHeight - size);
+
+      const left = col * cellWidth + xOffset;
+      const top = gridTop + row * cellHeight + yOffset;
+
+      img.style.left = `${left}px`;
+      img.style.top = `${top}px`;
+      img.style.position = "absolute";
+      container.appendChild(img);
+
+      // Save center of GIF for shooting star targets
+      gifRects.push({
+        x: left + size / 2,
+        y: top + size / 2
+      });
+    });
+
+    // SHOOTING STARS
+    const starCanvas = document.getElementById('stars');
+    starCanvas.width = width;
+    starCanvas.height = height;
+    const starCtx = starCanvas.getContext('2d');
+
+    // Star and burst logic
+    function randomEdgePoint() {
+      // Pick a random point on the edge of the screen
+      const edge = Math.floor(Math.random() * 4);
+      if (edge === 0) return {x: Math.random() * width, y: 0}; // top
+      if (edge === 1) return {x: width, y: Math.random() * height}; // right
+      if (edge === 2) return {x: Math.random() * width, y: height}; // bottom
+      return {x: 0, y: Math.random() * height}; // left
+    }
+
+    function randomColor() {
+      const palette = ['#fff', '#ff0', '#0ff', '#f0f', '#0f0', '#f00', '#00f', '#ffa500'];
+      return palette[Math.floor(Math.random() * palette.length)];
+    }
+
+    class BurstParticle {
+      constructor(x, y, color) {
+        this.x = x;
+        this.y = y;
+        this.radius = 2 + Math.random() * 2;
+        this.angle = Math.random() * 2 * Math.PI;
+        this.speed = 2 + Math.random() * 3;
+        this.life = 20 + Math.random() * 20;
+        this.color = color;
+      }
+      update() {
+        this.x += Math.cos(this.angle) * this.speed;
+        this.y += Math.sin(this.angle) * this.speed;
+        this.speed *= 0.96;
+        this.life--;
+      }
+      draw(ctx) {
+        ctx.save();
+        ctx.globalAlpha = Math.max(0, this.life / 30);
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.radius, 0, 2 * Math.PI);
+        ctx.fillStyle = this.color;
+        ctx.shadowColor = this.color;
+        ctx.shadowBlur = 10;
+        ctx.fill();
+        ctx.restore();
+      }
+    }
+
+    class ShootingStar {
+      constructor(target) {
+        this.start = randomEdgePoint();
+        this.target = target;
+        this.x = this.start.x;
+        this.y = this.start.y;
+        this.color = randomColor();
+        this.length = 30 + Math.random() * 30;
+        this.speed = 7 + Math.random() * 4;
+        const dx = target.x - this.x;
+        const dy = target.y - this.y;
+        const dist = Math.sqrt(dx*dx + dy*dy);
+        this.vx = dx / dist * this.speed;
+        this.vy = dy / dist * this.speed;
+        this.done = false;
+        this.burst = [];
+      }
+      update() {
+        if (this.done) {
+          // Update burst particles
+          this.burst.forEach(p => p.update());
+          this.burst = this.burst.filter(p => p.life > 0);
+          return;
+        }
+        // Move star
+        this.x += this.vx;
+        this.y += this.vy;
+        // Check if reached target
+        const dx = this.target.x - this.x;
+        const dy = this.target.y - this.y;
+        if (dx*dx + dy*dy < 1000) {
+          this.done = true;
+          // Create burst
+          for (let i = 0; i < 18; i++) {
+            this.burst.push(new BurstParticle(this.x, this.y, this.color));
+          }
+        }
+      }
+      draw(ctx) {
+        if (this.done) {
+          this.burst.forEach(p => p.draw(ctx));
+          return;
+        }
+        // Draw shooting star
+        ctx.save();
+        ctx.strokeStyle = this.color;
+        ctx.lineWidth = 2.5;
+        ctx.shadowColor = this.color;
+        ctx.shadowBlur = 12;
+        ctx.beginPath();
+        ctx.moveTo(this.x, this.y);
+        ctx.lineTo(this.x - this.vx * 3, this.y - this.vy * 3);
+        ctx.stroke();
+        ctx.restore();
+
+        // Draw star head
+        ctx.save();
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, 3.5, 0, 2 * Math.PI);
+        ctx.fillStyle = this.color;
+        ctx.shadowColor = this.color;
+        ctx.shadowBlur = 15;
+        ctx.fill();
+        ctx.restore();
+      }
+      isAlive() {
+        return !this.done || this.burst.length > 0;
+      }
+    }
+
+    // Animate stars
+    let shootingStars = [];
+    function animateStars() {
+      starCtx.clearRect(0, 0, width, height);
+
+      // Add new shooting star occasionally
+      if (Math.random() < 0.04 && gifRects.length > 0) {
+        const target = gifRects[Math.floor(Math.random() * gifRects.length)];
+        shootingStars.push(new ShootingStar(target));
+      }
+
+      shootingStars.forEach(star => {
+        star.update();
+        star.draw(starCtx);
+      });
+      shootingStars = shootingStars.filter(star => star.isAlive());
+
+      requestAnimationFrame(animateStars);
+    }
+    animateStars();
+  </script>
+</body>
+</html>
