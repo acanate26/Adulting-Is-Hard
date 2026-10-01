@@ -1,147 +1,173 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Adulting is Hard</title>
-    <style>
-      body {
-        margin: 0;
-        background-color: #fdf6e3; /* Light cream */
-        font-family: "Georgia", serif;
-        color: #3e3e3e;
-      }
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Adulting is Hard - Your grown-up checklist</title>
+<style>
+  :root{
+    --navy:#14123a; --butter:#fff6a8; --pink:#ff2fa6; --lime:#8dff3f; --teal:#00d0c4; --ink:#1b1b1b;
+  }
+  html{ box-sizing:border-box; }
+  *,*:before,*:after{ box-sizing:inherit; }
+  body{
+    margin:0; padding:12px; color:var(--ink);
+    font-family:"Comic Sans MS","Comic Neue","Chalkboard SE","Marker Felt",cursive;
+    background-color:var(--navy);
+    background-image:
+      radial-gradient(#fff 1.2px, transparent 1.6px),
+      radial-gradient(var(--teal) 1px, transparent 1.5px),
+      radial-gradient(var(--pink) 1.2px, transparent 1.7px);
+    background-size:57px 57px, 91px 91px, 133px 133px;
+    background-position:0 0, 23px 41px, 60px 12px;
+  }
+  .wrap{ max-width:820px; margin:0 auto; }
+  .marquee{
+    background:var(--pink); color:#fff; font-weight:bold; font-size:1.1rem;
+    border:4px ridge var(--lime); padding:6px 0; margin-bottom:14px;
+  }
+  .box{
+    background:var(--butter); border:5px ridge var(--teal);
+    padding:16px 20px; margin-bottom:14px;
+  }
+  h1{
+    margin:0 0 4px; font-size:2.6rem; line-height:1.1; text-align:center;
+    color:var(--pink); text-shadow:3px 3px 0 var(--teal);
+  }
+  .tag{ text-align:center; font-size:1.25rem; margin:0 0 10px; }
+  .tag b{ color:#6a00ff; }
+  .rainbow{ height:8px; border:0; margin:10px 0;
+    background:linear-gradient(90deg,#f33,#fa0,#ee0,#3c3,#09f,#90f); }
+  .construction{
+    text-align:center; font-weight:bold; padding:6px; margin:10px 0;
+    background:repeating-linear-gradient(45deg,#ffd400 0 14px,#222 14px 28px);
+  }
+  .construction span{ background:#ffd400; padding:2px 10px; border:2px solid #222; }
+  .grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:12px; }
+  .grid a{
+    display:block; text-decoration:none; color:var(--ink); background:#fff;
+    border:4px outset var(--pink); padding:12px; text-align:center;
+  }
+  .grid a:hover, .grid a:focus-visible{ background:var(--lime); border-style:inset; outline:3px dashed var(--navy); }
+  .grid .icon{ font-size:2.4rem; display:block; }
+  .grid .name{ font-size:1.2rem; font-weight:bold; text-decoration:underline; color:#0000ee; }
+  .grid .quest{ font-size:.9rem; display:block; margin-top:4px; }
+  .go{ text-align:center; margin:18px 0 6px; }
+  .go a{
+    display:inline-block; font-size:1.5rem; font-weight:bold; color:#fff; text-decoration:none;
+    background:var(--pink); border:5px outset #ffa0d8; padding:10px 28px;
+  }
+  .go a:hover, .go a:focus-visible{ border-style:inset; background:#c0007a; outline:3px dashed var(--navy); }
+  .counter{ text-align:center; font-size:.95rem; }
+  .digits{ display:inline-block; background:#000; color:var(--lime); font-family:"Courier New",monospace;
+    letter-spacing:4px; padding:2px 8px; border:3px inset #888; }
+  .badges{ display:flex; flex-wrap:wrap; gap:8px; justify-content:center; margin-top:10px; font-size:.8rem; }
+  .badges span{ border:2px solid var(--ink); background:#fff; padding:3px 8px; }
+  .spin{ display:inline-block; }
+  @media (prefers-reduced-motion:no-preference){
+    .spin{ animation:spin 4s linear infinite; }
+    .blink{ animation:blink 1s steps(2,start) infinite; }
+    @keyframes spin{ to{ transform:rotate(360deg);} }
+    @keyframes blink{ to{ visibility:hidden; } }
+  }
+  .spark{ position:fixed; pointer-events:none; z-index:9; font-size:16px; transition:opacity .7s, transform .7s; }
+</style>
+</head>
+<body>
+<div class="wrap">
 
-      header {
-        text-align: center;
-        background-color: #fff;
-        padding: 40px 20px 0;
-      }  
-      
-       .Relax {
-        width: 100%;
-        max-height: 500px;
-        object-fit: cover;
-        margin-bottom: -10px;
-      }
+  <marquee class="marquee" scrollamount="6">
+    &#9733; Welcome to Adulting is Hard! &#9733; Nobody told you about taxes, laundry, or dentists &#9733; We got you &#9733;
+  </marquee>
 
-      .logo { 
-        font-size: 40px;
-        font-weight: bold;
-        letter-spacing: 2px;
-        margin: 10px 0;
-      }
+  <div class="box">
+    <h1><span class="spin">&#10024;</span> Adulting is Hard <span class="spin">&#10024;</span></h1>
+    <p class="tag"><b>Your grown-up checklist</b></p>
+    <div class="construction"><span>&#128679; Under construction: new quests added all the time! &#128679;</span></div>
+    <hr class="rainbow">
+    <p style="text-align:center;margin:0">Pick a quest below. Check things off. Feel like a real person.</p>
+  </div>
 
-      .subtitle {
-        font-size: 18px;
-        letter-spacing: 2px;
-        color: #7a7a7a;
-        margin-bottom: 20px;
-      }
-
-      .section-title {
-        text-align: center;
-        font-size: 28px;
-        margin-top: 40px;
-        font-weight: bold;
-      }
-
-      .grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-        gap: 30px;
-        padding: 30px 60px;
-      }
-
-      .box {
-        background-color: #fff;
-        border: 1px solid #ddd;
-        padding: 20px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        text-align: center;
-      }
-
-      .box img {
-        max-width: 100%;
-        height: auto;
-        margin-bottom: 16px;
-      }
-
-      .box-title {
-        font-weight: bold;
-        font-size: 16px;
-      }
-
-      .box-footer {
-        text-align: center;
-        margin: 40px 0;
-      }
-
-      .box-footer a {
-        background-color: #c2a763;
-        padding: 10px 20px;
-        text-decoration: none;
-        color: white;
-        font-weight: bold;
-        border-radius: 5px;
-      }
-
-      .box-footer a:hover {
-        background-color: #a0894d;
-      }
-    </style>
-  </head>
-  <body>
-    <header>
-      <img
-        class="Relax"
-        src="https://cdn.glitch.global/bbf72d4b-7522-41bd-99a8-7657ed25c7bc/Relax.png?v=1744249650827"
-        alt="Relax Banner"
-      />
-      <div class="logo">Adulting is Hard</div>
-      <div class="subtitle">Your grown-up checklist</div>
-    </header>
-
-    <div class="section-title">Options</div>
-
-<div class="grid">
-  <a href="protect_your_mental_health.html" class="box-button">
-    <div class="box">
-    <img src="https://cdn.glitch.global/bbf72d4b-7522-41bd-99a8-7657ed25c7bc/creativity_4651970.png?v=1744245757516" alt="Task" />
-      <div class="box-title">Protect Your Mental Health</div>
+  <div class="box">
+    <div class="grid">
+      <a href="protect_your_mental_health.html">
+        <span class="icon">&#129504;</span>
+        <span class="name">Protect Your Mental Health</span>
+        <span class="quest">Quest: be kind to your brain</span>
+      </a>
+      <a href="budget.html">
+        <span class="icon">&#128176;</span>
+        <span class="name">Budget</span>
+        <span class="quest">Boss fight: your money</span>
+      </a>
+      <a href="laundry.html">
+        <span class="icon">&#129510;</span>
+        <span class="name">Laundry</span>
+        <span class="quest">Quest: no more pink socks</span>
+      </a>
+      <a href="cooking.html">
+        <span class="icon">&#127859;</span>
+        <span class="name">Cooking</span>
+        <span class="quest">Quest: dinner that isn't cereal</span>
+      </a>
+      <a href="sched_appoint.html">
+        <span class="icon">&#128222;</span>
+        <span class="name">Schedule Appointments</span>
+        <span class="quest">Quest: make the scary phone call</span>
+      </a>
     </div>
-  </a>
 
-  <a href="budget.html" class="box-button">
-    <div class="box">
-     <img src="https://cdn.glitch.global/bbf72d4b-7522-41bd-99a8-7657ed25c7bc/finance_5695756.png?v=1744245822007" alt="Task" />
-      <div class="box-title">Budget Finances</div>
+    <div class="go">
+      <a href="click.html">&#128073; Click Here! &#128072;</a>
+      <div class="blink" style="margin-top:6px;font-weight:bold">&larr; don't think about it, just click</div>
     </div>
-  </a>
+  </div>
 
-  <a href="laundry.html" class="box-button">
-    <div class="box">
-    <img src="https://cdn.glitch.global/bbf72d4b-7522-41bd-99a8-7657ed25c7bc/washing-machine_10939477.png?v=1744245897851" alt="Task" />
-      <div class="box-title">Do Your Laundry</div>
+  <div class="box counter">
+    You are visitor number
+    <span class="digits" id="count">000000</span>
+    <div class="badges">
+      <span>Best viewed in Netscape Navigator</span>
+      <span>Made with &#10084; and HTML</span>
+      <span>No cookies were harmed</span>
     </div>
-  </a>
+  </div>
 
-  <a href="cooking.html" class="box-button">
-    <div class="box">
-       <img src="https://cdn.glitch.global/bbf72d4b-7522-41bd-99a8-7657ed25c7bc/Screenshot_9-4-2025_21110_www.canva.com.jpeg?v=1744246885219" alt="Task" />
-      <div class="box-title">Cook Dinner</div>
-    </div>
-  </a>
-
-  <a href="sched_appoint.html" class="box-button">
-    <div class="box">
-      <img src="https://cdn.glitch.global/0545a6aa-bb1b-4a7a-9107-d3ba471d0a15/time%20management.png?v=1747212265312" alt="Task" />
-      <div class="box-title">Schedule Appointments</div>
- </div>
-  </a>
 </div>
 
-<div class="box-footer">
-  <a href="click.html">Click Here</a>
-</div>
+<script>
+  // Fake visitor counter: a made-up number that creeps up each time you reload.
+  (function(){
+    var n = 4200 + Math.floor(Math.random()*300);
+    try {
+      var saved = parseInt(localStorage.getItem('adulting_visits'), 10);
+      n = (isNaN(saved) ? n : saved) + 1;
+      localStorage.setItem('adulting_visits', n);
+    } catch(e) {}
+    document.getElementById('count').textContent = String(n).padStart(6,'0');
+  })();
+
+  // Sparkle cursor trail (skipped if the visitor prefers reduced motion).
+  if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    var bits = ['\u2728','\u2B50','\uD83D\uDCAB','\uD83C\uDF1F'];
+    var last = 0;
+    document.addEventListener('mousemove', function(e){
+      var now = Date.now();
+      if (now - last < 45) return;
+      last = now;
+      var s = document.createElement('div');
+      s.className = 'spark';
+      s.textContent = bits[Math.floor(Math.random()*bits.length)];
+      s.style.left = e.clientX + 'px';
+      s.style.top = e.clientY + 'px';
+      document.body.appendChild(s);
+      requestAnimationFrame(function(){
+        s.style.opacity = '0';
+        s.style.transform = 'translateY(24px) rotate(' + (Math.random()*180-90) + 'deg)';
+      });
+      setTimeout(function(){ s.remove(); }, 750);
+    });
+  }
+</script>
 </body>
-</html> 
+</html>
